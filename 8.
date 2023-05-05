@@ -1,0 +1,53 @@
+8.Write a C program for monoalphabetic cipher is that both sender and receiver must commit the permuted cipher sequence to memory. A common technique for avoiding this is to use a keyword from which the cipher sequence can be generated. For example, using the keyword CIPHER, write out the keyword followed by unused letters in normal order and match this against the plaintext letters: 
+plain: a b c d e f g h i j k l m n o p q r s t u v w x y z 
+cipher: C I P H E R A B D F G J K L M N O Q S T U V W X Y Z
+
+PROGRAM:
+import string
+
+def generate_cipher(keyword):
+    # Generate the cipher sequence from the keyword
+    keyword = keyword.upper()
+    unused_letters = ''.join([char for char in string.ascii_uppercase if char not in keyword])
+    cipher_sequence = keyword + unused_letters
+    return cipher_sequence
+
+def encrypt(message, cipher_sequence):
+    # Encrypt the message using the given cipher sequence
+    message = message.upper()
+    ciphertext = ''
+    for char in message:
+        if char in string.ascii_uppercase:
+            index = string.ascii_uppercase.index(char)
+            ciphertext += cipher_sequence[index]
+        else:
+            ciphertext += char
+    return ciphertext
+
+def decrypt(ciphertext, cipher_sequence):
+    # Decrypt the ciphertext using the given cipher sequence
+    plaintext = ''
+    for char in ciphertext:
+        if char in string.ascii_uppercase:
+            index = cipher_sequence.index(char)
+            plaintext += string.ascii_uppercase[index]
+        else:
+            plaintext += char
+    return plaintext
+
+# Example usage
+keyword = 'CIPHER'
+cipher_sequence = generate_cipher(keyword)
+print(f"Cipher sequence: {cipher_sequence}")
+
+message = 'This is a secret message.'
+ciphertext = encrypt(message, cipher_sequence)
+print(f"Ciphertext: {ciphertext}")
+
+decrypted_message = decrypt(ciphertext, cipher_sequence)
+print(f"Decrypted message: {decrypted_message}")
+
+OUTPUT:
+Cipher sequence: CIPHERABDFGJKLMNOQSTUVWXYZ
+Ciphertext: TBDS DS C SEPQET KESSCAE.
+Decrypted message: THIS IS A SECRET MESSAGE.
