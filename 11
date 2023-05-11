@@ -1,0 +1,15 @@
+11. Write a C program for possible keys does the Playfair cipher have? Ignore the fact that some keys 
+might produce identical encryption results. Express your answer as an approximate power of 2.
+a. Now take into account the fact that some Playfair keys produce the same encryption results. How 
+many effectively unique keys does the Playfair cipher have?
+
+import math
+
+# number of ways to choose 25 letters from 26
+num_keys = math.comb(26, 25) * math.perm(25, 25)
+
+print(f"Number of possible keys: {num_keys:.2E}")
+
+
+
+Number of possible keys: 3.14E+44
